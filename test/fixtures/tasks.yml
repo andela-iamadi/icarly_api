@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  task: MyString
+  due_date: 2015-07-26
+  due_time: 2015-07-26 22:11:51
+  reminder: 1
+  keyword: MyString
+
+two:
+  task: MyString
+  due_date: 2015-07-26
+  due_time: 2015-07-26 22:11:51
+  reminder: 1
+  keyword: MyString
