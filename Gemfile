@@ -5,9 +5,16 @@ gem 'rails', '4.2.3'
 
 gem 'rails-api'
 
+gem 'rspec-core'
+
 group :development do
 	gem 'spring'
 	gem 'sqlite3'
+end
+
+group :test do
+	gem 'pry'
+	gem 'pry-nav'
 end
 
 group :production do
