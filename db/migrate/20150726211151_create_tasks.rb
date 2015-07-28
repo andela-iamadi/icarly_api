@@ -8,7 +8,7 @@ class CreateTasks < ActiveRecord::Migration
       t.time :due_time
       t.integer :reminder, :default => 15
       t.string :alias
-      t.string :category
+      t.string :category, :default => 'personal'
       t.belongs_to :user
 
       t.timestamps null: false
