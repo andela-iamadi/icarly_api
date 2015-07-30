@@ -7,6 +7,8 @@ gem 'rails-api'
 
 gem 'rspec-core'
 
+gem 'rack-cors', :require => 'rack/cors'
+
 group :development do
 	gem 'spring'
 	gem 'sqlite3'
@@ -14,7 +16,10 @@ end
 
 
 group :test do
+<<<<<<< HEAD
   # Gem mini-test
+=======
+>>>>>>> configured CORS
 	gem 'pry-nav'
   gem 'minitest-reporters'
   gem 'mini_backtrace'
@@ -23,6 +28,7 @@ end
 
 group :production do
 	gem 'pg'
+  gem 'rails_12factor', '0.0.2'
 end
 
 
