@@ -12,13 +12,6 @@ class Api::V1::TasksController < ApplicationController
     end
 
     def create
-
-
-    end
-
-    def update
-
-
       params_init
       if @user
         @args['due_date'] = Date.current() if !@args['due_date']
@@ -48,11 +41,6 @@ class Api::V1::TasksController < ApplicationController
       else
         rendition(task, "Hey, create a task or specify an existing alias")
       end
-
-    end
-
-    def update
-
     end
 
     def destroy
