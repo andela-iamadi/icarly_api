@@ -4,10 +4,10 @@ class Api::V1::TasksController < ApplicationController
       params_init
       # render json: user.tasks.all.take(20)
       if @user && !@user.tasks.empty?
-        task = @args['alias'] ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(@args).order(due_date: :desc, due_time: :desc).take(20)
+        task = !@args['alias'].nil? ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(@args).order(due_date: :desc, due_time: :desc).take(20)
         rendition(task, task)
       else
-        render json: { ok: true, message: 'Hey, create a task!' }
+        rendition(task, 'Hey, create a task!')
       end
     end
 
@@ -25,7 +25,7 @@ class Api::V1::TasksController < ApplicationController
     def show
       params_init
       if @user && !@user.tasks.empty?
-        task = @args['alias'] ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(@args).order(due_date: :desc, due_time: :desc).take(20)
+        task = !@args['alias'].nil? ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(@args).order(due_date: :desc, due_time: :desc).take(20)
         rendition(task, task)
       else
         render json: { ok: true, message: 'Hey, create a task!' }
@@ -78,6 +78,6 @@ class Api::V1::TasksController < ApplicationController
     end
 
     def rendition(obj, message)
-      render json: !obj.respond_to?('errors') ? { message: message } : { ok: false, message: obj.errors.messages }
+      render json: !obj.respond_to?('errors') || obj.errors.empty? ? { message: message } : { ok: false, message: obj.errors.messages }
     end
 end
