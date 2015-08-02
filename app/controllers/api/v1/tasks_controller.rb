@@ -12,15 +12,13 @@ class Api::V1::TasksController < ApplicationController
     end
 
     def create
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
 
     end
 
     def update
 
->>>>>>> Merging
+
       params_init
       if @user
         @args['due_date'] = Date.current() if !@args['due_date']
@@ -50,15 +48,11 @@ class Api::V1::TasksController < ApplicationController
       else
         rendition(task, "Hey, create a task or specify an existing alias")
       end
-<<<<<<< HEAD
-=======
+
     end
 
     def update
->>>>>>> deleted the procfile
-=======
 
->>>>>>> Merging
     end
 
     def destroy
