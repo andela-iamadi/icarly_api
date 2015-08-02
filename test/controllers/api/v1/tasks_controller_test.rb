@@ -15,9 +15,6 @@ class Api::V1::TasksControllerTest < ActionController::TestCase
     assert_equal 3, tasks["message"].count
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
   test "should get delete" do
     # require 'pry-nav'; binding.pry
@@ -39,7 +36,6 @@ class Api::V1::TasksControllerTest < ActionController::TestCase
     assert_equal "Checkout race", tasks[2]
   end
 
->>>>>>> Merging
   test "the index action returns task list arranged with most recent at the top" do
     get :index, id: @user.id, user: { username: "elis" }
     tasks = JSON.parse(response.body)
@@ -85,8 +81,7 @@ class Api::V1::TasksControllerTest < ActionController::TestCase
     assert_no_difference '@user.tasks.count' do
       delete :destroy, id: "", task: { due_date: Date.current() }, user: { username: @user.username }
     end
-<<<<<<< HEAD
-=======
+
   test "should get delete" do
     # require 'pry-nav'; binding.pry
     # get :delete
@@ -105,10 +100,7 @@ class Api::V1::TasksControllerTest < ActionController::TestCase
     assert_equal "Amity rooftop party", tasks[0]
     assert_equal "Thoughtspot cleansing", tasks[1]
     assert_equal "Checkout race", tasks[2]
->>>>>>> Worked on the controllers
-=======
 
->>>>>>> Merging
   end
 
 end
