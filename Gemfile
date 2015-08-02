@@ -12,9 +12,13 @@ group :development do
 	gem 'sqlite3'
 end
 
+
 group :test do
-	gem 'pry'
+  # Gem mini-test
 	gem 'pry-nav'
+  gem 'minitest-reporters'
+  gem 'mini_backtrace'
+  gem 'guard-minitest'
 end
 
 group :production do
