@@ -5,7 +5,4 @@ class UserTest < ActiveSupport::TestCase
   #   assert true
   # end
 
-  "It returns an object"
-  "A user can have more than one task"
-  "It can be deleted"
 end
