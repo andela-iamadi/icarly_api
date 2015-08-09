@@ -16,10 +16,6 @@ end
 
 
 group :test do
-<<<<<<< HEAD
-  # Gem mini-test
-=======
->>>>>>> configured CORS
 	gem 'pry-nav'
   gem 'minitest-reporters'
   gem 'mini_backtrace'
