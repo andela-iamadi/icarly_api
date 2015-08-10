@@ -2,6 +2,7 @@ class Api::V1::TasksController < ApplicationController
 
     def index
       params_init
+      # render json: user.tasks.all.take(20)
       if @user && !@user.tasks.empty?
         task = !@args['alias'].nil? ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(@args).order(due_date: :desc, due_time: :desc).take(20)
         rendition(task, task)
