@@ -74,7 +74,6 @@ class Api::V1::TasksControllerTest < ActionController::TestCase
 
     get :index
     tasks = JSON.parse(response.body)
-    require 'pry'; binding.pry
     assert_equal 3, tasks.count
     assert_equal "Amity rooftop party", tasks[0]
     assert_equal "Thoughtspot cleansing", tasks[1]
