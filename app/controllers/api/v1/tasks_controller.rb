@@ -2,12 +2,21 @@ class Api::V1::TasksController < ApplicationController
 
     def index
       params_init
-      # render json: user.tasks.all.take(20)
       if @user && !@user.tasks.empty?
         task = !@args['alias'].nil? ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(@args).order(due_date: :desc, due_time: :desc).take(20)
         rendition(task, task)
       else
         rendition(task, 'Hey, create a task!')
+      end
+    end
+
+    def show_all
+      params_init
+      if @user && !@user.tasks.empty?
+        task = !@args['alias'].nil? ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(@args).order(due_date: :desc, due_time: :desc).take(20)
+        rendition(task, task)
+      else
+        rendition(task, "Hey, your task list is empty. create a task!")
       end
     end
 
@@ -56,28 +65,29 @@ class Api::V1::TasksController < ApplicationController
     private
 
     def task_params
-      params.require(:task).permit(:task, :due_date, :due_time, :alias, :reminder, :category) if params.has_key? 'task'
+      params.require(:task).permit(:task, :due_date, :due_time, :alias, :reminder, :category) if params.has_key? "task"
     end
 
     def user_params
-      params.require(:user).permit(:username, :first_name, :last_name, :email) if params.has_key? 'user'
+      params.require(:user).permit(:username, :first_name, :last_name, :email) if params.has_key? "user"
     end
 
     def params_init
+      require 'pry-nav'; binding.pry
       @user = !curr_user.nil? ? curr_user : nil
       @args = !task_params.nil? ? task_params : {}
     end
 
     def curr_user
       user = nil
-      if !user_params.nil? && user_params.has_key?('username')
-        user = User.find_by(username: user_params['username'])
+      if !user_params.nil? && user_params.has_key?("username")
+        user = User.find_by(username: user_params["username"])
         user = User.create(user_params) if !user
       end
       user
     end
 
     def rendition(obj, message)
-      render json: !obj.respond_to?('errors') || obj.errors.empty? ? { message: message } : { ok: false, message: obj.errors.messages }
+      render json: !obj.respond_to?("errors") || obj.errors.empty? ? { message: message } : { ok: false, message: obj.errors.messages }
     end
 end

@@ -60,6 +60,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :tasks
       resources :users
+      post 'tasks/all' => 'tasks#show_all'
     end
   end
 
