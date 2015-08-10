@@ -1,8 +1,8 @@
 class Task < ActiveRecord::Base
 	belongs_to :user
-
-  validates :task, :presence => true
-	validates :alias, :presence => true
-	validates :due_time, :presence => true
-	validates :user_id, :presence => true,  :on => :create
+  before_save { self.alias = self.alias.downcase }
+  validates :task, presence: true, on: :create
+	validates :alias, presence: true, uniqueness: { scope: [:due_date, :user_id], case_sensitive: false }
+	validates :due_time, presence: true, on: :create
+	validates :user_id, presence: true, on: :create
 end

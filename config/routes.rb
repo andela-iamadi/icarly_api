@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
-  namespace :api do
-  namespace :v1 do
-    get 'users/index'
-    end
-  end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -64,7 +60,6 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :tasks
       resources :users
-
     end
   end
 
