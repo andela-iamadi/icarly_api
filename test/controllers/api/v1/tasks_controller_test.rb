@@ -63,7 +63,6 @@ class Api::V1::TasksControllerTest < ActionController::TestCase
     end
 
   test "should get delete" do
-    # require 'pry-nav'; binding.pry
     # get :delete
     # assert_response :success
   end

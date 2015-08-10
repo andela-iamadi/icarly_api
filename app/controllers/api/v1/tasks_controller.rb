@@ -74,7 +74,6 @@ class Api::V1::TasksController < ApplicationController
     end
 
     def params_init
-      require 'pry-nav'; binding.pry
       @user = !curr_user.nil? ? curr_user : nil
       @args = !task_params.nil? ? task_params : {}
     end
