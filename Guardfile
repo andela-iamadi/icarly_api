@@ -26,19 +26,8 @@ guard :minitest, spring: true, all_on_start: false do
   watch(%r{^app/controllers/(.*?)_controller\.rb$}) do |matches|
     resource_tests(matches[1])
   end
-  watch(%r{^app/views/([^/]*?)/.*\.html\.erb$}) do |matches|
-    ["test/controllers/#{matches[1]}_controller_test.rb"] +
+  watch(%r{^app/helpers/(.*?)_helper\.rb$}) do |matches|
     integration_tests(matches[1])
-  end
-  watch('app/controllers/api/v1/tasks_controller.rb') do
-    'test/controllers/api/v1/tasks_controller_test.rb'
-  end
-  watch('app/controllers/api/v1/users_controller.rb') do
-    ['test/controllers/api/v1/users_controller_test.rb',
-     'test/integration/users_login_test.rb']
-  end
-  watch('app/controllers/account_activations_controller.rb') do
-    'test/integration/users_signup_test.rb'
   end
   watch(%r{app/views/users/*}) do
     resource_tests('users') +

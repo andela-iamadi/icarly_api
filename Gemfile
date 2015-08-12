@@ -9,13 +9,10 @@ gem 'rspec-core'
 
 gem 'rack-cors', :require => 'rack/cors'
 
-group :development do
+group :development, :test do
 	gem 'spring'
 	gem 'sqlite3'
-end
 
-
-group :test do
 	gem 'pry-nav'
   gem 'minitest-reporters'
   gem 'mini_backtrace'

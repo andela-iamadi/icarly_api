@@ -15,7 +15,6 @@ class Api::V1::TasksControllerTest < ActionController::TestCase
     assert_equal 3, tasks["message"].count
   end
 
-<<<<<<< HEAD
   test "the index action returns task list arranged with most recent at the top" do
     get :index, id: @user.id, user: { username: "elis" }
     tasks = JSON.parse(response.body)
@@ -61,8 +60,9 @@ class Api::V1::TasksControllerTest < ActionController::TestCase
     assert_no_difference '@user.tasks.count' do
       delete :destroy, id: "", task: { due_date: Date.current() }, user: { username: @user.username }
     end
-
-  test "should get delete" do
+  end
+  
+  test "should delete a task from database" do
     # get :delete
     # assert_response :success
   end
