@@ -5,4 +5,7 @@ class Task < ActiveRecord::Base
 	validates :alias, presence: true, uniqueness: { scope: [:due_date, :user_id], case_sensitive: false }
 	validates :due_time, presence: true, on: :create
 	validates :user_id, presence: true, on: :create
+
+	scope :select_without, ->(*columns) { select(column_names - columns.map(&:to_s)) }
+
 end

@@ -61,11 +61,6 @@ class Api::V1::TasksControllerTest < ActionController::TestCase
       delete :destroy, id: "", task: { due_date: Date.current() }, user: { username: @user.username }
     end
   end
-  
-  test "should delete a task from database" do
-    # get :delete
-    # assert_response :success
-  end
 
   test "the index action returns back json of all test" do
     task1 = Task.create(task: "Amity rooftop party", alias: "party", due_time: "12:00", user_id: 1)
