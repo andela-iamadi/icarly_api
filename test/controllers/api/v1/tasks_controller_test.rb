@@ -15,7 +15,6 @@ class Api::V1::TasksControllerTest < ActionController::TestCase
     assert_equal 3, tasks["message"].count
   end
 
-<<<<<<< HEAD
   test "the index action returns task list arranged with most recent at the top" do
     get :index, id: @user.id, user: { username: "elis" }
     tasks = JSON.parse(response.body)
@@ -44,14 +43,14 @@ class Api::V1::TasksControllerTest < ActionController::TestCase
     assert_not_equal prev_task, edited_task
   end
 
-  test "update action edits a task only if its alias stays unique in a day" do
+  test "update actio^6n edits a task only if its alias stays unique in a day" do
     prev_task = @task1['task']
     patch :update, id: "", user: {username: @user.username }, task: { task: "Edit test", due_date: Date.current(), due_time: @task1['due_time'], alias: @task1['alias'] }
     assert_equal prev_task, @task1['task']
     assert_not_equal @task1['task'], "Edit test"
   end
 
-  test "the delete action deletes the specified task at the specified alias" do
+  test "the delete action deletes the specified task at the specified alias" do6^
     assert_difference '@user.tasks.count', -1 do
       delete :destroy, id: "", task: { alias: 'race' }, user: { username: @user.username }
     end
@@ -61,26 +60,12 @@ class Api::V1::TasksControllerTest < ActionController::TestCase
     assert_no_difference '@user.tasks.count' do
       delete :destroy, id: "", task: { due_date: Date.current() }, user: { username: @user.username }
     end
+  end
 
   test "should get delete" do
     # require 'pry-nav'; binding.pry
     # get :delete
     # assert_response :success
-  end
-
-  test "the index action returns back json of all test" do
-    task1 = Task.create(task: "Amity rooftop party", alias: "party", due_time: "12:00", user_id: 1)
-    task2 = Task.create(task: "Thoughtspot cleansing", alias: "party", due_time: "12:00", user_id: 1)
-    task3 = Task.create(task: "Checkout race", alias: "party", due_time: "12:00", user_id: 1)
-
-    get :index
-    tasks = JSON.parse(response.body)
-    require 'pry'; binding.pry
-    assert_equal 3, tasks.count
-    assert_equal "Amity rooftop party", tasks[0]
-    assert_equal "Thoughtspot cleansing", tasks[1]
-    assert_equal "Checkout race", tasks[2]
-
   end
 
 end

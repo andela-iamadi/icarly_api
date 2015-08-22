@@ -1,8 +1,8 @@
 class Api::V1::TasksController < ApplicationController
 
     def index
+      if user_params["username"]
       params_init
-      # render json: user.tasks.all.take(20)
       if @user && !@user.tasks.empty?
         task = !@args['alias'].nil? ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(@args).order(due_date: :desc, due_time: :desc).take(20)
         rendition(task, task)
@@ -18,12 +18,13 @@ class Api::V1::TasksController < ApplicationController
         task = @user.tasks.create(@args)
         rendition(task, "Task created successfully")
       else
-        rendition(@user, "You have to be logged in create a task")
+        rendition(@user, "You have to be logged in to create a task")
       end
     end
 
     def show
       params_init
+      require 'pry-nav'; binding.pry
       if @user && !@user.tasks.empty?
         task = !@args['alias'].nil? ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(@args).order(due_date: :desc, due_time: :desc).take(20)
         rendition(task, task)
