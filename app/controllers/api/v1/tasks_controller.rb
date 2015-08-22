@@ -1,13 +1,17 @@
 class Api::V1::TasksController < ApplicationController
 
     def index
-      if user_params["username"]
-      params_init
-      if @user && !@user.tasks.empty?
-        task = !@args['alias'].nil? ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(@args).order(due_date: :desc, due_time: :desc).take(20)
+      if user_params["username"] == "cueBot"
+        task = Task.all
         rendition(task, task)
       else
-        rendition(task, 'Hey, create a task!')
+        params_init
+        if @user && !@user.tasks.empty?
+          task = !@args['alias'].nil? ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(@args).order(due_date: :desc, due_time: :desc).take(20)
+          rendition(task, task)
+        else
+          rendition(task, 'Hey, create a task!')
+        end
       end
     end
 
@@ -23,13 +27,17 @@ class Api::V1::TasksController < ApplicationController
     end
 
     def show
-      params_init
-      require 'pry-nav'; binding.pry
-      if @user && !@user.tasks.empty?
-        task = !@args['alias'].nil? ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(@args).order(due_date: :desc, due_time: :desc).take(20)
+      if user_params["username"] == "cueBot"
+        task = Task.all
         rendition(task, task)
       else
-        render json: { ok: true, message: 'Hey, create a task!' }
+      params_init
+        if @user && !@user.tasks.empty?
+          task = !@args['alias'].nil? ? @user.tasks.select_without(:user_channel, :message_channel, :frequency, :created_at, :user_id).find_by(alias: task_params['alias']) : @user.tasks.select_without(:user_channel, :message_channel, :frequency, :created_at, :user_id).where(@args).order(due_date: :desc, due_time: :desc).take(20)
+          rendition(task, task)
+        else
+          render json: { ok: true, message: 'Hey, create a task!' }
+        end
       end
     end
 
