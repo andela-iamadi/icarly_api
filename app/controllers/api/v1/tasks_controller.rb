@@ -75,7 +75,7 @@ class Api::V1::TasksController < ApplicationController
     private
 
     def task_params
-      params.require(:task).permit(:task, :due_date, :due_time, :alias, :reminder, :category) if params.has_key? "task"
+      params.require(:task).permit(:task, :due_date, :due_time, :alias, :reminder, :category, :message_channel, :user_channel, :frequency) if params.has_key? "task"
     end
 
     def user_params
