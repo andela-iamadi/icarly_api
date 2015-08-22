@@ -1,7 +1,7 @@
 class Api::V1::TasksController < ApplicationController
 
     def index
-      if user_params["username"] == "cueBot"
+      if user_params && user_params["username"] == "cueBot"
         task = Task.all
         rendition(task, task)
       else
@@ -37,7 +37,7 @@ class Api::V1::TasksController < ApplicationController
     end
 
     def show
-      if user_params["username"] == "cueBot"
+      if user_params && user_params["username"] == "cueBot"
         task = Task.all
         rendition(task, task)
       else
@@ -53,7 +53,6 @@ class Api::V1::TasksController < ApplicationController
 
     def update
       params_init
-      console.log("Got to update");
       if @user && @args.has_key?('alias') && !@user.tasks.empty?
         task = @user.tasks.find_by(alias: @args['alias'])
         task.update(@args) if !task.nil?
