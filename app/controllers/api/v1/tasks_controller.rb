@@ -7,7 +7,7 @@ class Api::V1::TasksController < ApplicationController
       else
         params_init
         if @user && !@user.tasks.empty?
-          task = !@args['alias'].nil? ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(@args).order(due_date: :desc, due_time: :desc).take(20)
+          task = !@args['alias'].nil? ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(conditions).order(due_date: :desc, due_time: :desc).take(20)
           rendition(task, task)
         else
           rendition(task, 'Hey, create a task!')
@@ -18,7 +18,7 @@ class Api::V1::TasksController < ApplicationController
     def show_all
       params_init
       if @user && !@user.tasks.empty?
-        task = !@args['alias'].nil? ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(@args).order(due_date: :desc, due_time: :desc).take(20)
+        task = !@args['alias'].nil? ? @user.tasks.find_by(alias: task_params['alias']) : @user.tasks.where(conditions).order(due_date: :desc, due_time: :desc).take(20)
         rendition(task, task)
       else
         rendition(task, "Hey, your task list is empty. create a task!")
@@ -43,7 +43,7 @@ class Api::V1::TasksController < ApplicationController
       else
       params_init
         if @user && !@user.tasks.empty?
-          task = !@args['alias'].nil? ? @user.tasks.select_without(:user_channel, :message_channel, :frequency, :created_at, :user_id).find_by(alias: task_params['alias']) : @user.tasks.select_without(:user_channel, :message_channel, :frequency, :created_at, :user_id).where(@args).order(due_date: :asc, due_time: :asc).take(20)
+          task = !@args['alias'].nil? ? @user.tasks.select_without(:user_channel, :message_channel, :frequency, :created_at, :user_id).find_by(alias: task_params['alias']) : @user.tasks.select_without(:user_channel, :message_channel, :frequency, :created_at, :user_id).where(conditions).order(due_date: :asc, due_time: :asc).take(20)
           rendition(task, task)
         else
           render json: { ok: true, message: 'Hey, create a task!' }
@@ -80,6 +80,10 @@ class Api::V1::TasksController < ApplicationController
 
     def user_params
       params.require(:user).permit(:username, :first_name, :last_name, :email) if params.has_key? "user"
+    end
+
+    def conditions
+      params.require(:task).permit(:task, :due_date, :due_time, :alias, :reminder) if params.has_key? "task"
     end
 
     def params_init
